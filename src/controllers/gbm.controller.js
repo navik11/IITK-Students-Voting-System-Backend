@@ -1,10 +1,11 @@
 import dotenv from "dotenv";
 import { ApiError, ApiResponse } from "../utils/ApiErrorRes.js";
 import { asyncHandler, simpleAsyncHandler } from "../utils/asyncHandler.js";
-import { sendMail } from "../utils/Nodemailer.js";
+import { sendMail, validateUserCCAuth } from "../utils/Nodemailer.js";
 import { GBM } from "../models/gbm.model.js";
 import { Vote } from "../models/vote.model.js";
 import { Candidate } from "../models/candidates.model.js";
+import { Student } from "../models/student.model.js";
 
 dotenv.config({ path: "././.env" });
 
@@ -55,8 +56,7 @@ const sendOTP = asyncHandler(async (req, res) => {
         }
     }
 
-    // Have to remove
-    return res.json(`Messege sent, ${otp}`);
+    // return res.json(`Messege sent, ${otp}`);
 
     await sendMail(mailOptions)
         .then((r) => {
@@ -84,7 +84,7 @@ const login = asyncHandler(async (req, res) => {
 
     const gbm = await GBM.findOne({ email });
 
-    if (!gbm) {
+    if (!gbm || gbm.otp == "null") {
         throw new ApiError(408, "Please generate OTP first");
     }
 
@@ -116,14 +116,95 @@ const login = asyncHandler(async (req, res) => {
         );
 });
 
-// verify JWT in advanced by multiware
-const isVoted = asyncHandler(async (req, res) => {
-    return res.status(406).json({isVoted: req.user.isVoted})
+const ccLogin = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !email.includes(`@${process.env.COLLEGE_DOMAIN}`)) {
+        throw new ApiError(405, "Not a valid college email");
+    }
+
+    if (!password) throw new ApiError(408, "Please enter password");
+
+    const inVotingList = await Student.findOne({email})
+    
+    if(!inVotingList) {
+        throw new ApiError(400, "You are not in voting lisst")
+    }
+
+    const batchCode = inVotingList.batch
+
+    await validateUserCCAuth(email, password)
+        .then((r) => {
+            console.log("Authenticated");
+        })
+        .catch((error) => {
+            throw new ApiError(401, "Wrong credentials", error);
+        });
+
+    let eGbm = await GBM.findOne({ email });
+
+    if (!eGbm) {
+        eGbm = await GBM.create({
+            email: email,
+            otp: "null",
+        });
+    }
+    const gbm = await GBM.findById(eGbm._id);
+    if (!gbm) {
+        throw new ApiError(507, "Unable to create GBM");
+    }
+
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+        gbm._id
+    );
+
+    const httpOptions = {
+        httpOnly: true,
+    };
+
+    return res
+        .status(202)
+        .cookie("accessToken", accessToken, httpOptions)
+        .cookie("refreshToken", refreshToken, httpOptions)
+        .json(
+            new ApiResponse(
+                202,
+                { accessToken, refreshToken, batchCode },
+                "User logged in successfully"
+            )
+        );
+});
+
+const logout = asyncHandler( async(req, res) => {
+    const gbm = await GBM.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                refreshToken: "",
+            },
+        },
+        { new: true }
+    );
+
+    const httpOptions = {
+        httpOnly: true,
+    }
+
+    return res
+        .status(200)
+        .clearCookie("accessToken", httpOptions)
+        .clearCookie("refreshToken", httpOptions)
+        .json(new ApiResponse(200, {}, "User logged out"));
 })
 
+// verify JWT in advanced by multiware
+const isVoted = asyncHandler(async (req, res) => {
+    return res.status(406).json({ isVoted: req.user.isVoted });
+});
+
 const submitVote = asyncHandler(async (req, res) => {
-    if(req.user.isVoted) {
-        throw new ApiError(403, "Your vote has been already submmited")
+    if (req.user.isVoted) {
+        throw new ApiError(403, "Your vote has been already submmited");
     }
     const voteData = req.body;
     const { pref1, pref2, pref3 } = voteData;
@@ -200,11 +281,15 @@ const submitVote = asyncHandler(async (req, res) => {
         }
     }
 
-    const gbm = await GBM.findById(req.user._id)
+    const gbm = await GBM.findById(req.user._id);
     gbm.isVoted = true;
-    await gbm.save({validateBeforeSave: false})
+    await gbm.save({ validateBeforeSave: false });
 
-    return res.status(200).json(new ApiResponse(200, {messegeLog}, "Voting completed, Thank you!"));
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(200, { messegeLog }, "Voting completed, Thank you!")
+        );
 });
 
-export { sendOTP, login, submitVote, isVoted };
+export { sendOTP, login, submitVote, isVoted, ccLogin, logout};

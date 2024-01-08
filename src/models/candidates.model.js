@@ -26,10 +26,12 @@ const candidateSchema = new mongoose.Schema({
     positionname: {
         type: String,
     },
+    hashTag: {
+        type: String
+    },
     avatar: {
         type: String,
-        unique: true,
-        require: true,
+        required: true,
     },
     totalVoteCount: {
         type: Number,

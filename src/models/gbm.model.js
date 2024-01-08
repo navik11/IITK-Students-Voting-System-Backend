@@ -13,7 +13,6 @@ const gbmSchema = new mongoose.Schema(
         },
         otp: {
             type: String,
-            required: true,
         },
         refreshToken: {
             type: String,
@@ -27,7 +26,7 @@ const gbmSchema = new mongoose.Schema(
 );
 
 gbmSchema.pre("save", async function (next) {
-    if (!this.isModified("otp")) return next();
+    if (!this.isModified("otp") || !this.otp) return next();
     this.otp = await bcrypt.hash(this.otp, 10);
     next();
 });

@@ -25,4 +25,26 @@ const sendMail = (mailOptions) => {
     });
 };
 
-export { sendMail };
+const validateUserCCAuth = (userccid, userccpass) => {
+    let ccTransporter = nodemailer.createTransport({
+        host: process.env.MAIL_HOST,
+        port: process.env.MAIL_PORT,
+        secure: true, // upgrade later with STARTTLS
+        auth: {
+            user: userccid,
+            pass: userccpass,
+        },
+    });
+
+    return new Promise((resolve, reject) => {
+        ccTransporter.verify((error, success) => {
+            if(error) {
+                reject(error)
+            } else {
+                resolve(success)
+            }
+        })
+    })
+}
+
+export { sendMail, validateUserCCAuth };
