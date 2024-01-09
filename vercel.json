@@ -20,19 +20,17 @@
         }
     ],
     "version": 2,
-    "routes": [
-        {
-            "src": "/*",
-            "dest": "/src/index.js"
-        },
-        {
-            "handle": "filesystem"
-        }
-    ],
     "builds": [
         {
             "src": "/src/index.js",
-            "use": "@now/node"
+            "use": "@vercel/node",
+            "config": { "includeFiles": ["dist/**"] }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/src/index.js"
         }
     ]
 }
