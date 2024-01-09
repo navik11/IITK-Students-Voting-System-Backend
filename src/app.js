@@ -22,6 +22,9 @@ import gbmRoute from "./routes/gbm.route.js"
 import adminRoute from "./routes/admin.route.js"
 
 //routes use declaration
+app.get("/", (req, res) => {
+    res.json("Server is live")
+})
 app.use("/api/v1/candidate", candidateRouter)
 app.use("/api/v1/gbm", gbmRoute)
 app.use("/api/v1/admin", adminRoute)
