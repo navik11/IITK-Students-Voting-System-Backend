@@ -1,7 +1,4 @@
 {
-    "rewrites":  [
-      {"source": "./src/(.*)", "destination": "/"}
-    ],
     "headers": [
         {
             "source": "/(.*)",
@@ -20,6 +17,22 @@
                     "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
                 }
             ]
+        }
+    ],
+    "version": 2,
+    "routes": [
+        {
+            "src": "/*",
+            "dest": "/src/index.js"
+        },
+        {
+            "handle": "filesystem"
+        }
+    ],
+    "builds": [
+        {
+            "src": "/src/index.js",
+            "use": "@now/node"
         }
     ]
 }
