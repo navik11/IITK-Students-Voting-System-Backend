@@ -30,4 +30,4 @@ app.use("/api/v1/candidate", candidateRouter);
 app.use("/api/v1/gbm", gbmRoute);
 app.use("/api/v1/admin", adminRoute);
 
-export { app };
+export default app;
