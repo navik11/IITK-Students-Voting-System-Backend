@@ -125,13 +125,13 @@ const ccLogin = asyncHandler(async (req, res) => {
 
     if (!password) throw new ApiError(408, "Please enter password");
 
-    const inVotingList = await Student.findOne({email})
-    
-    if(!inVotingList) {
-        throw new ApiError(400, "You are not in voting lisst")
+    const inVotingList = await Student.findOne({ email });
+
+    if (!inVotingList) {
+        throw new ApiError(400, "You are not in voting lisst");
     }
 
-    const batchCode = inVotingList.batch
+    const batchCode = inVotingList.batch;
 
     await validateUserCCAuth(email, password)
         .then((r) => {
@@ -175,7 +175,7 @@ const ccLogin = asyncHandler(async (req, res) => {
         );
 });
 
-const logout = asyncHandler( async(req, res) => {
+const logout = asyncHandler(async (req, res) => {
     const gbm = await GBM.findByIdAndUpdate(
         req.user._id,
         {
@@ -188,14 +188,14 @@ const logout = asyncHandler( async(req, res) => {
 
     const httpOptions = {
         httpOnly: true,
-    }
+    };
 
     return res
         .status(200)
         .clearCookie("accessToken", httpOptions)
         .clearCookie("refreshToken", httpOptions)
         .json(new ApiResponse(200, {}, "User logged out"));
-})
+});
 
 // verify JWT in advanced by multiware
 const isVoted = asyncHandler(async (req, res) => {
@@ -292,4 +292,4 @@ const submitVote = asyncHandler(async (req, res) => {
         );
 });
 
-export { sendOTP, login, submitVote, isVoted, ccLogin, logout};
+export { sendOTP, login, submitVote, isVoted, ccLogin, logout };

@@ -1,7 +1,7 @@
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 
-dotenv.config({ path:'././.env' })
+dotenv.config({ path: "././.env" });
 
 let transporter = nodemailer.createTransport({
     host: process.env.MAIL_HOST,
@@ -38,13 +38,13 @@ const validateUserCCAuth = (userccid, userccpass) => {
 
     return new Promise((resolve, reject) => {
         ccTransporter.verify((error, success) => {
-            if(error) {
-                reject(error)
+            if (error) {
+                reject(error);
             } else {
-                resolve(success)
+                resolve(success);
             }
-        })
-    })
-}
+        });
+    });
+};
 
 export { sendMail, validateUserCCAuth };

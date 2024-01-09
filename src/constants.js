@@ -1,1 +1,1 @@
-export const DB_NAME = "voting_system_database"
+export const DB_NAME = "voting_system_database";

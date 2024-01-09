@@ -1,15 +1,15 @@
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import connectDB from "./db/index.js";
-import { app } from "./app.js"
+import { app } from "./app.js";
 
-dotenv.config()
+dotenv.config();
 
 connectDB()
-.then( () => {
-    app.listen(process.env.PORT || 3000,() => {
-        console.log(`Sever is live at port: ${process.env.PORT}`)
+    .then(() => {
+        app.listen(process.env.PORT || 3000, () => {
+            console.log(`Sever is live at port: ${process.env.PORT}`);
+        });
     })
-})
-.catch ( (error) => {
-    console.log(`MongoDB connection failed`)
-})
+    .catch((error) => {
+        console.log(`MongoDB connection failed`);
+    });

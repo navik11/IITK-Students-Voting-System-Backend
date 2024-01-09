@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import { v2 as cloudinary } from "cloudinary";
-import fs from 'fs'
+import fs from "fs";
 
 dotenv.config({ path: "././.env" });
 
@@ -11,7 +11,6 @@ cloudinary.config({
 });
 
 const uploadOnCloudinary = async (localFileUri) => {
-    
     try {
         if (!localFileUri) return null;
         const response = await cloudinary.uploader.upload(localFileUri, {
@@ -25,5 +24,4 @@ const uploadOnCloudinary = async (localFileUri) => {
     }
 };
 
-
-export {uploadOnCloudinary}
+export { uploadOnCloudinary };

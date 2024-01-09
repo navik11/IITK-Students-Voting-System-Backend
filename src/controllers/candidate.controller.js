@@ -90,7 +90,7 @@ const getCandidates = asyncHandler(async (req, res) => {
         ]);
 
         let nota = candidates.shift();
-        candidates.push(nota)
+        candidates.push(nota);
 
         allCandidates = { ...allCandidates, [positionCode]: candidates };
     }

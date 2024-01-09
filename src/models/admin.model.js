@@ -1,15 +1,18 @@
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
-const adminSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true,
+const adminSchema = new mongoose.Schema(
+    {
+        email: {
+            type: String,
+            required: true,
+        },
+        refreshToken: {
+            type: String,
+        },
     },
-    refreshToken: {
-        type: String
-    }
-}, {timestamps: true})
+    { timestamps: true }
+);
 
 adminSchema.methods.generateRefreshToken = function () {
     return jwt.sign(
@@ -36,5 +39,4 @@ adminSchema.methods.generateAccessToken = function () {
     );
 };
 
-
-export const Admin = new mongoose.model("Admin", adminSchema)
+export const Admin = new mongoose.model("Admin", adminSchema);

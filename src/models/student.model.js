@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const studentSchema = new mongoose.Schema({
     email: {
@@ -11,7 +11,6 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    
-})
+});
 
-export const Student = new mongoose.model("Student", studentSchema)
+export const Student = new mongoose.model("Student", studentSchema);
