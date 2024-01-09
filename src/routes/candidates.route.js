@@ -4,12 +4,6 @@ import { addCandidate, getCandidates } from '../controllers/candidate.controller
 
 const router = Router()
 
-router.route("/add-candidate").post(upload.fields([
-    {
-        name: 'avatar',
-        maxCount: 1,
-    }
-]), addCandidate)
 router.route("/getCandidates").get(getCandidates)
 
 export default router

@@ -6,7 +6,7 @@ dotenv.config()
 
 connectDB()
 .then( () => {
-    app.listen(process.env.PORT || 300, '172.23.34.219',() => {
+    app.listen(process.env.PORT || 300,() => {
         console.log(`Sever is live at port: ${process.env.PORT}`)
     })
 })
