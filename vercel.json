@@ -26,11 +26,5 @@
             "use": "@vercel/node",
             "config": { "includeFiles": ["dist/**"] }
         }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/src/index.js"
-        }
     ]
 }
