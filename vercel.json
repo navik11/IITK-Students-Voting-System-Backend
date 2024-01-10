@@ -7,10 +7,10 @@
             "config": { "includeFiles": ["dist/**"] }
         }
     ],
-    "routes": [
+    "rewrites": [
         {
-            "src": "/(.*)",
-            "dest": "src/index.js"
+          "source": "/(.*)",
+          "destination": "/api"
         }
     ]
 }
