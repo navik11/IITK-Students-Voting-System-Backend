@@ -1,9 +1,12 @@
 import dotenv from "dotenv";
-import connectDB from "./db/index.js"
 
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
+import { DB_NAME } from "../constants.js";
+
+dotenv.config();
 
 const app = express();
 
@@ -33,7 +36,20 @@ app.use("/api/v1/candidate", candidateRouter);
 app.use("/api/v1/gbm", gbmRoute);
 app.use("/api/v1/admin", adminRoute);
 
-dotenv.config();
+
+const connectDB = async () => {
+    try {
+        const connectionInstance = await mongoose.connect(
+            `${process.env.MONGODB_URI}/${DB_NAME}`
+        );
+        console.log(
+            `Mongodb connected !!\n DB Host ${connectionInstance.connection.host}`
+        );
+    } catch (err) {
+        console.log(`MongoDB connection failed`, err);
+        process.exit(1);
+    }
+};
 
 connectDB()
     .then(() => {
