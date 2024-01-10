@@ -160,6 +160,7 @@ const ccLogin = asyncHandler(async (req, res) => {
 
     const httpOptions = {
         httpOnly: true,
+        secure: true,
     };
 
     return res
@@ -188,6 +189,7 @@ const logout = asyncHandler(async (req, res) => {
 
     const httpOptions = {
         httpOnly: true,
+        secure: true,
     };
 
     return res
