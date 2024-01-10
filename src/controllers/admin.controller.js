@@ -54,7 +54,7 @@ const ccLogin = asyncHandler(async (req, res) => {
     const httpOptions = {
         httpOnly: true,
         secure: true,
-        sameSite: 'None',
+        sameSite: "None",
     };
 
     return res

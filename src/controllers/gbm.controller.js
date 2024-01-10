@@ -101,7 +101,7 @@ const login = asyncHandler(async (req, res) => {
     const httpOptions = {
         httpOnly: true,
         secure: true,
-        sameSite: 'None',
+        sameSite: "None",
     };
 
     return res
@@ -162,7 +162,7 @@ const ccLogin = asyncHandler(async (req, res) => {
     const httpOptions = {
         httpOnly: true,
         secure: true,
-        sameSite: 'None',
+        sameSite: "None",
     };
 
     return res
@@ -192,7 +192,7 @@ const logout = asyncHandler(async (req, res) => {
     const httpOptions = {
         httpOnly: true,
         secure: true,
-        sameSite: 'None',
+        sameSite: "None",
     };
 
     return res
