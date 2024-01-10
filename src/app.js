@@ -30,4 +30,4 @@ app.use("/api/v1/admin", adminRoute);
 app.get("/", (req, res) => {
     res.json("Server is live");
 });
-export { app };
+export default app;

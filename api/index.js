@@ -1,7 +1,3 @@
-import app from "../src/app.js"
-
-app.get("/", (req, res) => {
-    res.json({"message": "Server is liveee"})
-})
+import { app } from "../src/app.js"
 
 export default app
