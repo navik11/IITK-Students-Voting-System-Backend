@@ -4,7 +4,8 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
-import { DB_NAME } from "../constants.js";
+// import { DB_NAME } from "../constants.js";
+const DB_NAME = "voting_system_database";
 
 dotenv.config();
 
@@ -24,17 +25,17 @@ app.use(cookieParser());
 
 //import routes here
 
-import candidateRouter from "./routes/candidates.route.js";
-import gbmRoute from "./routes/gbm.route.js";
-import adminRoute from "./routes/admin.route.js";
+// import candidateRouter from "./routes/candidates.route.js";
+// import gbmRoute from "./routes/gbm.route.js";
+// import adminRoute from "./routes/admin.route.js";
 
 //routes use declaration
 app.get("/", (req, res) => {
     res.json("Server is live");
 });
-app.use("/api/v1/candidate", candidateRouter);
-app.use("/api/v1/gbm", gbmRoute);
-app.use("/api/v1/admin", adminRoute);
+// app.use("/api/v1/candidate", candidateRouter);
+// app.use("/api/v1/gbm", gbmRoute);
+// app.use("/api/v1/admin", adminRoute);
 
 
 const connectDB = async () => {
