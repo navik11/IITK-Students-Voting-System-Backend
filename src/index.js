@@ -1,20 +1,18 @@
 import dotenv from "dotenv";
-// import connectDB from "./db/index.js";
+import connectDB from "../api/db/index.js";
 import { app }from "./app.js";
 
 dotenv.config();
 
-
-
-// connectDB()
-//     .then(() => {
+connectDB()
+    .then(() => {
         app.listen(process.env.PORT || 5667, () => {
             console.log(`Sever is live at port: ${process.env.PORT}`);
         });
-//     })
-//     .catch((error) => {
-//         console.log(`MongoDB connection failed`);
-//     });
+    })
+    .catch((error) => {
+        console.log(`MongoDB connection failed`);
+    });
 
 // import express from "express"
 
