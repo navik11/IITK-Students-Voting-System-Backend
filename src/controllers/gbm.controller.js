@@ -172,7 +172,7 @@ const ccLogin = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 202,
-                { accessToken, refreshToken, batchCode },
+                { accessToken, refreshToken, batchCode, isVoted: eGbm.isVoted },
                 "User logged in successfully"
             )
         );
