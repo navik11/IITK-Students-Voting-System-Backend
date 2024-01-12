@@ -1,0 +1,318 @@
+{
+	"info": {
+		"_postman_id": "1e4a2aab-6edb-48c7-b628-dbcdc7b6bf00",
+		"name": "Voting System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31801318"
+	},
+	"item": [
+		{
+			"name": "General Body Member",
+			"item": [
+				{
+					"name": "sendOTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/gbm/sendOTP?email=jnikhil22@iitk.ac.in",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"gbm",
+								"sendOTP"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "jnikhil22@iitk.ac.in"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "jnikhil22@iitk.ac.in",
+									"type": "text"
+								},
+								{
+									"key": "otp",
+									"value": "xxxx",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/gbm/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"gbm",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ccLogin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "sachidanan22@iitk.ac.in",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "thereWasMyPassword",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/gbm/ccLogin",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"gbm",
+								"ccLogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckAuth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/gbm/check-auth",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"gbm",
+								"check-auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SubmitVote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/gbm/submitVote",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"gbm",
+								"submitVote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/gbm/logout",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"gbm",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "gbm route will handle operations of voters.\n\nLogin method 1- OTP based (Current frontend does not use this)\n\n- sendOTP: This will send a random OTP from my side to gbm email, and store it as a hash\n    \n- login: from this route gbm will authed if OTP matched with the hash in database\n    \n\nLogin method 2- CC Id and Password based\n\n- ccLogin: Here gbm can enter their CC Id and Password, they will be authed if backend verify it\n    \n\n---\n\n- CheckAuth: To verify if gbm is authed or not, helps to show some user specific or sensitive infos\n    \n- SubmitVote: This route will allow gbm to submit there vote\n    \n- Logout: After successful polling, gbm can be logout with this route"
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "AdminLogin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "email@iitk.ac.in",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "somepassword",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/admin/ccLogin",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"admin",
+								"ccLogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckAuth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/admin/check-auth",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"admin",
+								"check-auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddCandidate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "positioncode",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "rollno",
+									"value": "220929",
+									"type": "text"
+								},
+								{
+									"key": "fullname",
+									"value": "Sachidanand Navik",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "sachidanan22@iitk.ac.in",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/E:/Downloads/Screenshot_20240107_121620_Instagram.jpg"
+								},
+								{
+									"key": "hashTag",
+									"value": "VoteForMe",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/admin/addCandidate",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"admin",
+								"addCandidate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CountVotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/admin/countVotes",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"admin",
+								"countVotes"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Admin specific request can be hanled using this route\n\n- AdminLogin: Admin can login with CC credentials, they will be authed if they exists in admin database\n    \n- CheckAuth: To make sure admin is requesting, you can use this.\n    \n- AddCandidates: This route will help admin to add new candidates for elections\n    \n- CountVotes: This will return the vote count till that time in detail"
+		},
+		{
+			"name": "Candidate",
+			"item": [
+				{
+					"name": "getCandidates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/candidate/getCandidates?positions=1,2,4",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"candidate",
+								"getCandidates"
+							],
+							"query": [
+								{
+									"key": "positions",
+									"value": "1,2,4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Candidate route is to deal with related to candidate operations.\n\n- Get Candidate- host:port/api/v1/candidate/getCandidates?positions=1,2,4\n    \n\nParam 'position' will allow you to request candidates of selective posts.\n\nex- A Y22 should not be allowed to vote for Y21 or Y20 Senator."
+		}
+	]
+}
