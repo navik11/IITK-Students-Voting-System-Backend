@@ -27,7 +27,7 @@ The backend of this voting system is built using Node.js, Express, and MongoDB. 
 ## Postman Collection
 
 To explore all functionalities, routes please go through Postman Collection of this backend.  
-![Postman-collection](https://github.com/navik11/IITK-Students-Voting-System-Backend/blob/master/public/Voting%20System.postman_collection.json)
+[Postman-Collection](https://github.com/navik11/IITK-Students-Voting-System-Backend/blob/master/public/Voting%20System.postman_collection.json)
 
 ## Feedback and Support
 For any issues, feedback, or support, please contact me Sachida navik09.me@gmail.com | sachidanan22@iitk.ac.in  
